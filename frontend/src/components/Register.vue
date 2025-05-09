@@ -1,44 +1,39 @@
 <template>
-  <div>
-    <h2>Register</h2>
-    <form @submit.prevent="register">
-      <input v-model="username" placeholder="Username" required />
-      <input v-model="email" placeholder="Email" required />
-      <input v-model="password" type="password" placeholder="Password" required />
-      <button type="submit">Register</button>
-    </form>
-    <p>{{ message }}</p>
-  </div>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      username: '',
-      email: '',
-      password: '',
-      message: ''
-    };
-  },
-  methods: {
-    async register() {
-      try {
-        const res = await fetch('http://localhost:5000/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+    <div>
+      <h2>Register</h2>
+      <form @submit.prevent="submitForm">
+        <input v-model="username" placeholder="Username" required />
+        <input type="password" v-model="password" placeholder="Password" required />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </template>
+  
+  <script>
+  import axios from 'axios';
+  
+  export default {
+    data() {
+      return {
+        username: '',
+        password: ''
+      };
+    },
+    methods: {
+      async submitForm() {
+        try {
+          const response = await axios.post('http://localhost:5000/api/register', {
             username: this.username,
-            email: this.email,
             password: this.password
-          })
-        });
-        const data = await res.json();
-        this.message = data.message || data.error;
-      } catch (err) {
-        this.message = 'Registration failed';
+          });
+          console.log('Registration successful:', response.data);
+          // You can handle response here, e.g., navigate to login page or show a success message
+        } catch (error) {
+          console.error('Registration failed:', error.response.data);
+          // Show error message if registration fails
+        }
       }
     }
-  }
-};
-</script>
+  };
+  </script>
+  
