@@ -36,7 +36,7 @@ A full-stack web application with user registration, login, and CRUD functionali
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/dockerized-express-crud-app.git
+git clone https://github.com/CaptainSani/Dockerized-express-crud-app.git
 cd dockerized-express-crud-app
 
 ---
